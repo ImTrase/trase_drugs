@@ -11,6 +11,15 @@ function GetPlayer(target)
     end
 end
 
+function GetItemLabel(itemName)
+    local item = QBCore.Shared.Items[itemName]
+    if item then
+        return item.label
+    else
+        return item
+    end
+end
+
 function CountItem(target, item)
     local player = GetPlayer(target)
     if (not player) then return 0 end

@@ -1,7 +1,22 @@
-lib.callback.register('trase_drugs:server:grabConfig', function()
-    -- Load the only needed configuration values to the client.
+local function InitClientConfig()
     local cfg = {}
-    cfg.DrawDistance = Config.DrawDistance
+    cfg.Options = Config.Options
     cfg.Drugs = Config.Drugs
+    cfg.Ranks = Config.Ranks
     return cfg
+end
+
+RegisterNetEvent('trase_drugs:server:playerConnected', function()
+    local src = source
+    local rank = GetRankData(src)
+
+    Player(src):state('drugRank', rank)
+
+    local data = {
+        config = InitClientConfig()
+    }
+
+    TriggerClientEvent('trase_drugs:client:syncData', src, data)
 end)
+
+lib.locale()

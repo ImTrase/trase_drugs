@@ -4,14 +4,31 @@ Config = {}
 
 Config.Framework = 0 -- 0 = ESX, 1 = QBCore
 
-Config.DrawDistance = 10.0 -- How far you can see the markers (increasing this can cause performance issues)
+
+Config.Options = {
+    DrawDistance = 10.0, -- The distance to draw the markers (increasing can hurt performance)
+    AutoRepeat = true, -- If enabled, the player will not need to press E to farm after each action.
+}
+
+Config.Ranks = {
+    {
+        RankLabel = 'Dealer',
+        SellRequirement = 10
+    },
+    {
+        RankLabel = 'Kingpin',
+        SellRequirement = 25
+    }
+}
 
 Config.Drugs = {
     ['coke'] = {
         Collection = {
-            HelpText = {
-                Collect = '[E] - Collect Coke',
-                Process = '[E] - Process Coke'
+            Label = 'Coke',
+
+            Speeds = {
+                Collection = 2, -- Time in seconds to collect the drug
+                Process = 5 -- Time in seconds to process the drug
             },
             
             Locations = {

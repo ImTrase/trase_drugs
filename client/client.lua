@@ -1,18 +1,33 @@
-local Config
+local lib = lib
+lib.locale()
+local locale = locale
 
+
+-- Create Thread that will loop with Wait(0) then break after connection
 CreateThread(function()
-    Config = lib.callback.await('trase_drugs:server:grabConfig')
+    while true do
+        Wait(0)
+        if NetworkIsPlayerActive(PlayerId()) then
+            TriggerServerEvent('trase_drugs:server:playerConnected')
+            break
+        end
+    end
+end)
+
+local function CreateDrugs()
+    while not Config or not next(Config) do Wait(0) end
 
     for k, v in pairs(Config.Drugs) do
         if v.Collection and next(v.Collection.Locations) then
             for i = 1, #v.Collection.Locations do
                 local point = lib.points.new({
                     coords = v.Collection.Locations[i],
-                    distance = Config.Marker,
+                    distance = Config.Options.DrawDistance,
                 })
 
                 function point:onEnter()
-                    TextUI(v.Collection.HelpText.Collect)
+                    --@Todo: Add a localized string for this.
+                    TextUI(locale('prompt_collect'):format(v.Label))
                 end
 
                 function point:onExit()
@@ -23,7 +38,7 @@ CreateThread(function()
                     CreateMarker(self.coords.xyz)
                  
                     if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
-                        print('inside marker', self.id, 'dunak is a '.. self.dunak)
+                        AttemptCollect(k, v)
                     end
                 end
             end
@@ -33,11 +48,12 @@ CreateThread(function()
             for i = 1, #v.Process.Locations do
                 local point = lib.points.new({
                     coords = v.Process.Locations[i],
-                    distance = Config.Marker,
+                    distance = Config.Options.DrawDistance,
                 })
 
                 function point:onEnter()
-                    TextUI(v.Collection.HelpText.Process)
+                    --@Todo: Add a localized string for this.
+                    TextUI(locale('prompt_process'):format(v.Label))
                 end
 
                 function point:onExit()
@@ -49,9 +65,15 @@ CreateThread(function()
                 end
 
                 if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
-                    print('inside marker', self.id, 'dunak is a '.. self.dunak)
+                    AttemptProcess(k, v)
                 end
             end
         end
     end
+end
+
+RegisterNetEvent('trase_drugs:client:syncData', function(data)
+    Config = data.config
+
+    CreateDrugs()
 end)

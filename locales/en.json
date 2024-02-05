@@ -1,0 +1,7 @@
+{
+    "prompt_collect": "[E] - Collect %s",
+    "prompt_process": "[E] - Process %s",
+    "progress_collect": "Collecting %s",
+    "progress_process": "Processing %s",
+    "missing_items": "You are missing %s"
+}

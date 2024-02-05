@@ -1,6 +1,10 @@
 -- Open source functions you can edit.
 -- If you need support or have a question, join the discord: https://discord.gg/trase
 
+local busy = false -- Used to prevent spamming.
+local lib = lib -- Localize the lib table.
+local locale = locale -- Localize the locale function.
+
 -- Draws the marker on the floors.
 -- @param coords table
 -- @return void
@@ -16,5 +20,85 @@ function TextUI(text)
         lib.showTextUI(text)
     else
         lib.hideTextUI()
+    end
+end
+
+-- Sends a notification to the player.
+-- @param text string
+-- @return void
+function SendNotification(text)
+    lib.notify(text)
+end
+
+-- Attempts to collect the drugs from the collection point.
+-- @param drug string
+-- @param data table
+-- @return void
+function AttemptCollect(drug, data)
+    if (busy) then return end
+    busy = true
+
+    local canCollect = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'collect')
+    if not canCollect then
+        SendNotification(locale('missing_items'):format(canCollect))
+        busy = false
+        return
+    end
+    
+    -- TODO: Add logic for leveling system to reduce time.
+    local time = data.Speeds.Collect * 1000
+
+    local progressBar = {
+        label = locale('progress_collect'):format(data.Label),
+        duration = time,
+        useWhileDead = false,
+        canCancel = true,
+        disable = { car = true, move = true, combat = true },
+    }
+
+    if data.anim then progressBar.anim = data.anim end
+    if data.prop then progressBar.prop = data.prop end
+
+    if lib.progressBar(progressBar) then
+        TriggerServerEvent('trase_drugs:server:collect', drug)
+        busy = false
+        if Config.Options.AutoRepeat then
+            Wait(500)
+            AttemptCollect(drug, data)
+        end
+    end
+end
+
+-- Attempts to process the drugs from the processing point.
+-- @param drug string
+-- @param data table
+-- @return void
+function AttemptProcess(drug, data)
+    if (busy) then return end
+    busy = true
+
+    -- Todo: Add logic for required items to process.
+
+    -- TODO: Add logic for leveling system to reduce time.
+    local time = data.Speeds.Process * 1000
+
+    local progressBar = {
+        label = locale('progress_process'):format(data.Label),
+        duration = time,
+        useWhileDead = false,
+        canCancel = true,
+        disable = { car = true, move = true, combat = true },
+    }
+
+    if data.anim then progressBar.anim = data.anim end
+    if data.prop then progressBar.prop = data.prop end
+
+    if lib.progressBar(progressBar) then
+        TriggerServerEvent('trase_drugs:server:process', drug)
+        busy = false
+        if Config.Options.AutoRepeat then
+            Wait(500)
+            AttemptProcess(drug, data)
+        end
     end
 end
