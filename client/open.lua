@@ -77,7 +77,12 @@ function AttemptProcess(drug, data)
     if (busy) then return end
     busy = true
 
-    -- Todo: Add logic for required items to process.
+    local canProcess = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'process')
+    if not canProcess then
+        SendNotification(locale('missing_items'):format(canProcess))
+        busy = false
+        return
+    end
 
     -- TODO: Add logic for leveling system to reduce time.
     local time = data.Speeds.Process * 1000
