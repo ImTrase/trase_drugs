@@ -11,13 +11,19 @@ shared_script {
 }
 
 client_scripts {
-
+    'client/open.lua',
+    'client/client.lua',
 }
 
 server_scripts {
     'config.lua',
 }
 
+escrow_ignore {
+    -- Always ignore these:
+    'config.lua',
+    'client/open.lua',
+}
 
 --[[
     ToDo:

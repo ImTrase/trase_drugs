@@ -9,6 +9,11 @@ Config.DrawDistance = 10.0 -- How far you can see the markers (increasing this c
 Config.Drugs = {
     ['coke'] = {
         Collection = {
+            HelpText = {
+                Collect = '[E] - Collect Coke',
+                Process = '[E] - Process Coke'
+            },
+            
             Locations = {
                 vec3(0, 0, 0)
             },
