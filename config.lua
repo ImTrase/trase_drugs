@@ -17,7 +17,11 @@ Config.Ranks = {
     },
     {
         RankLabel = 'Kingpin',
-        SellRequirement = 25
+        SellRequirement = 25,
+        Benifits = {
+            CollectionSpeed = 25, -- 25% faster collection speed
+            ProcessSpeed = 25, -- 25% faster process speed
+        }
     }
 }
 
