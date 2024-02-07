@@ -37,6 +37,12 @@ function RemoveItem(target, item, amount)
     xPlayer.removeInventoryItem(item, amount)
 end
 
+function AddItem(target, item, amount)
+    local xPlayer = GetPlayer(target)
+    if (not xPlayer) then return end
+    xPlayer.addInventoryItem(item, amount)
+end
+
 local CachedSells = {}
 
 function CountDrugs(target)

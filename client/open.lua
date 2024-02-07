@@ -3,7 +3,9 @@
 
 local busy = false -- Used to prevent spamming.
 local lib = lib -- Localize the lib table.
+lib.locale()
 local locale = locale -- Localize the locale function.
+
 
 -- Draws the marker on the floors.
 -- @param coords table
@@ -45,7 +47,7 @@ function AttemptCollect(drug, data)
         return
     end
 
-    local time = data.Speeds.Collect * 1000
+    local time = data.Speeds.Collection * 1000
 
     local rank = LocalPlayer.state.drugRank
     if rank and tonumber(rank) and Config.Ranks[rank] then
@@ -71,7 +73,7 @@ function AttemptCollect(drug, data)
         TriggerServerEvent('trase_drugs:server:collect', drug)
         busy = false
         if Config.Options.AutoRepeat then
-            Wait(500)
+            Wait(100)
             AttemptCollect(drug, data)
         end
     end
@@ -118,7 +120,7 @@ function AttemptProcess(drug, data)
         TriggerServerEvent('trase_drugs:server:process', drug)
         busy = false
         if Config.Options.AutoRepeat then
-            Wait(500)
+            Wait(100)
             AttemptProcess(drug, data)
         end
     end

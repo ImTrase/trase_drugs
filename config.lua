@@ -3,7 +3,7 @@
 Config = {}
 
 Config.Framework = 0 -- 0 = ESX, 1 = QBCore
-
+Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
 Config.Options = {
     DrawDistance = 10.0, -- The distance to draw the markers (increasing can hurt performance)
@@ -27,21 +27,20 @@ Config.Ranks = {
 
 Config.Drugs = {
     ['coke'] = {
-        Collection = {
-            Label = 'Coke',
+        Label = 'Coke',
+        Speeds = {
+            Collection = 10, -- Time in seconds to collect the drug
+            Process = 5 -- Time in seconds to process the drug
+        },
 
-            Speeds = {
-                Collection = 2, -- Time in seconds to collect the drug
-                Process = 5 -- Time in seconds to process the drug
-            },
-            
+        Collection = {
             Locations = {
-                vec3(0, 0, 0)
+                vec3(48.6413, 46.8333, 72.6150)
             },
 
             Rewards = {
                 ['money'] = 2500,
-                ['coke'] = 1
+                ['water'] = 1
             },
 
             Requirements = false

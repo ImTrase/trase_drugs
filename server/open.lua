@@ -2,7 +2,7 @@
 --@param target number
 --@return number, table
 function GetRankData(target)
-    local drugsSold = CountDrugs(target)
+    local drugsSold = exports.trase_dealer:CountDrugs(target)
 
     -- Loop through Config.Ranks and get the highest rank the player has
     local rank = 0
@@ -15,6 +15,36 @@ function GetRankData(target)
     return rank, Config.Ranks[rank]
 end
 
+-- Function to check the requirements for the player to collect or process drugs
+--@param src number
+--@param drug string
+--@param type string
+--@return boolean
+function CheckRequirements(src, drug, type)
+    if not Config.Drugs[drug] then
+        print(('^2[Trase_Drugs] ^1[ERROR] ^0The drug %s does not exist in the configuration.'):format(drug))
+        return false
+    end
+
+    local requierments
+    if type == 'collect' then
+        requierments = Config.Drugs[drug].Collection.Requirements
+    else
+        requierments = Config.Drugs[drug].Process.Requirements
+    end
+    
+    if not requierments or not next(requierments) then return true end
+
+    for item, amount in pairs(requierments) do
+        local count = CountItem(src, item)
+        if count < amount then
+            return false, GetItemLabel(item)
+        end
+    end
+
+    return true
+end 
+
 -- Callback to check if the player has the required items to collect or process drugs
 --@param src number
 --@param drug string
@@ -26,15 +56,5 @@ lib.callback.register('trase_drugs:server:check_requirements', function(src, dru
         return false
     end
 
-    local requierments = type == 'collect' and Config.Drugs[drug].Collection.Requirements or Config.Drugs[drug].Process.Requirements
-    if not requierments or not next(requierments) then return true end
-
-    for item, amount in pairs(requierments) do
-        local count = CountItem(src, item)
-        if count < amount then
-            return false, GetItemLabel(item)
-        end
-    end
-
-    return true
+    return CheckRequirements(src, drug, type)
 end)

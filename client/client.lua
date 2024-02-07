@@ -1,5 +1,5 @@
 local lib = lib
-lib.locale()
+
 local locale = locale
 
 
@@ -62,11 +62,13 @@ local function CreateDrugs()
 
                 function point:nearby()
                     CreateMarker(self.coords.xyz)
+
+                    if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
+                        AttemptProcess(k, v)
+                    end
                 end
 
-                if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
-                    AttemptProcess(k, v)
-                end
+          
             end
         end
     end

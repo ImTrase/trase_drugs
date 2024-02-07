@@ -11,12 +11,20 @@ shared_script {
 }
 
 client_scripts {
+    'frameworks/**/client.lua',
     'client/open.lua',
     'client/client.lua',
 }
 
 server_scripts {
     'config.lua',
+    'frameworks/**/server.lua',
+    'server/open.lua',
+    'server/server.lua',
+}
+
+files {
+    'locales/*.json'
 }
 
 escrow_ignore {
