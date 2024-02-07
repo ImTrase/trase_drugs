@@ -10,6 +10,11 @@ Config.Options = {
     AutoRepeat = true, -- If enabled, the player will not need to press E to farm after each action.
 }
 
+Config.RankCommand = {
+    Enabled = true, -- If enabled, players can use /rank to view their rank.
+    Command = 'drugRank' -- The command to use to view the rank.
+}
+
 Config.Ranks = {
     {
         RankLabel = 'Dealer',
@@ -35,7 +40,7 @@ Config.Drugs = {
 
         Collection = {
             Locations = {
-                vec3(48.6413, 46.8333, 72.6150)
+                vec3(0, 0, 0),
             },
 
             Rewards = {
@@ -48,15 +53,15 @@ Config.Drugs = {
 
         Process = {
             Locations = {
-                vec3(0, 0, 0)
+                vec3(48.6413, 46.8333, 72.6150)
             },
 
             Rewards = {
-                ['coke'] = 1
+                ['bread'] = 1
             },
 
             Requirements = {
-                ['coke'] = 1
+                ['water'] = 1
             }
         },
     }

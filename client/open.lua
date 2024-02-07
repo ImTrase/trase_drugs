@@ -53,8 +53,8 @@ function AttemptCollect(drug, data)
     if rank and tonumber(rank) and Config.Ranks[rank] then
         local rankData = Config.Ranks[rank]
         if rankData.Benifits and rankData.Benifits.CollectionSpeed then
-            data.Speeds.Collect = data.Speeds.Collect - (data.Speeds.Collect * (rankData.Benifits.CollectionSpeed / 100))
-            time = data.Speeds.Collect * 1000
+            local finalSpeed = data.Speeds.Collection - (data.Speeds.Collection * (rankData.Benifits.CollectionSpeed / 100))
+            time = finalSpeed * 1000
         end
     end
 
@@ -97,11 +97,12 @@ function AttemptProcess(drug, data)
     local time = data.Speeds.Process * 1000
 
     local rank = LocalPlayer.state.drugRank
+
     if rank and tonumber(rank) and Config.Ranks[rank] then
         local rankData = Config.Ranks[rank]
         if rankData.Benifits and rankData.Benifits.ProcessSpeed then
-            data.Speeds.Process = data.Speeds.Process - (data.Speeds.Process * (rankData.Benifits.ProcessSpeed / 100))
-            time = data.Speeds.Process * 1000
+            local finalSpeed = data.Speeds.Process - (data.Speeds.Process * (rankData.Benifits.ProcessSpeed / 100))
+            time = finalSpeed * 1000
         end
     end
 

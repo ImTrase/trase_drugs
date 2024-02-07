@@ -3,5 +3,7 @@
     "prompt_process": "[E] - Process %s",
     "progress_collect": "Collecting %s",
     "progress_process": "Processing %s",
-    "missing_items": "You are missing %s"
+    "missing_items": "You are missing %s",
+
+    "rank_notify": "Your current rank is \"%s\"."
 }

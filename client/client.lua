@@ -74,8 +74,9 @@ local function CreateDrugs()
     end
 end
 
-RegisterNetEvent('trase_drugs:client:syncData', function(data)
+RegisterNetEvent('trase_drugs:client:syncData', function(data, drugRank)
     Config = data.config
 
     CreateDrugs()
+    LocalPlayer.state.drugRank = drugRank
 end)

@@ -33,13 +33,14 @@ end)
 
 RegisterNetEvent('trase_drugs:server:playerConnected', function()
     local src = source
+ 
     if loaded then
         local rank = GetRankData(src)
-        Player(src).state:set('drugRank', rank)
+        Player(src).state:set('drugRank', rank, false)
         local data = {
             config = InitClientConfig()
         }
-        TriggerClientEvent('trase_drugs:client:syncData', src, data)
+        TriggerClientEvent('trase_drugs:client:syncData', src, data, 2)
     end
 end)
 
@@ -69,5 +70,42 @@ RegisterNetEvent('trase_drugs:server:collect', function(drug)
         end
     end
 end)
+
+RegisterNetEvent('trase_drugs:server:process', function(drug)
+    if not Config.Drugs[drug] then
+        print(('^2[Trase_Drugs] ^1[ERROR] ^0The drug %s does not exist in the configuration.'):format(drug))
+        return
+    end
+
+    local src = source
+    if not CheckRequirements(src, drug, 'process') then
+        print(('^2[Trase_Drugs] ^1[ERROR] (Possible Cheater) ^0Player %s does not have the required items to process %s.'):format(src, drug))
+        return
+    end
+
+    local drugData = Config.Drugs[drug].Process
+    
+    if drugData.Requirements and next(drugData.Requirements) then
+        for item, amount in pairs(drugData.Requirements) do
+            RemoveItem(src, item, amount)
+        end
+    end
+
+    if drugData.Rewards and next(drugData.Rewards) then
+        for item, amount in pairs(drugData.Rewards) do
+            AddItem(src, item, amount)
+        end
+    end
+end)
+
+-- Command to Config.RankCommand
+if Config.RankCommand.Enabled then
+    RegisterCommand(Config.RankCommand.Command, function(source)
+        local src = source
+        local rank, rankData = GetRankData(src)
+
+        TriggerClientEvent('trase_dealer:client:notify', src, locale('rank_notify'):format(rankData.RankLabel))
+    end, false)
+end
 
 lib.locale()

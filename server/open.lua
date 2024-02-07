@@ -5,7 +5,7 @@ function GetRankData(target)
     local drugsSold = exports.trase_dealer:CountDrugs(target)
 
     -- Loop through Config.Ranks and get the highest rank the player has
-    local rank = 0
+    local rank = 1
     for i = 1, #Config.Ranks do
         if (drugsSold >= Config.Ranks[i].SellRequirement) then
             rank = i
@@ -43,7 +43,7 @@ function CheckRequirements(src, drug, type)
     end
 
     return true
-end 
+end
 
 -- Callback to check if the player has the required items to collect or process drugs
 --@param src number
