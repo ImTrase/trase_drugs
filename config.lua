@@ -18,7 +18,12 @@ Config.RankCommand = {
 Config.Ranks = {
     {
         RankLabel = 'Dealer',
-        SellRequirement = 10
+        SellRequirement = 10,
+        Benifits = {
+            CollectionSpeed = 5, -- 5% faster collection speed
+            ProcessSpeed = 5, -- 5% faster process speed
+            Multiplier = 2, -- 1.5x the rewards
+        }
     },
     {
         RankLabel = 'Kingpin',
@@ -26,6 +31,7 @@ Config.Ranks = {
         Benifits = {
             CollectionSpeed = 25, -- 25% faster collection speed
             ProcessSpeed = 25, -- 25% faster process speed
+            Multiplier = 2, -- 2x the rewards
         }
     }
 }

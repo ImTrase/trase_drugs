@@ -57,6 +57,7 @@ RegisterNetEvent('trase_drugs:server:collect', function(drug)
     end
 
     local drugData = Config.Drugs[drug].Collection
+    local rank, rankData = GetRankData(src)
     
     if drugData.Requirements and next(drugData.Requirements) then
         for item, amount in pairs(drugData.Requirements) do
@@ -66,7 +67,11 @@ RegisterNetEvent('trase_drugs:server:collect', function(drug)
 
     if drugData.Rewards and next(drugData.Rewards) then
         for item, amount in pairs(drugData.Rewards) do
-            AddItem(src, item, amount)
+            local multiplier = 1
+            if rankData.Benifits and rankData.Benifits.Multiplier then
+                multiplier = rankData.Benifits.Multiplier
+            end
+            AddItem(src, item, amount * multiplier)
         end
     end
 end)
@@ -84,6 +89,7 @@ RegisterNetEvent('trase_drugs:server:process', function(drug)
     end
 
     local drugData = Config.Drugs[drug].Process
+    local rank, rankData = GetRankData(src)
     
     if drugData.Requirements and next(drugData.Requirements) then
         for item, amount in pairs(drugData.Requirements) do
@@ -93,7 +99,11 @@ RegisterNetEvent('trase_drugs:server:process', function(drug)
 
     if drugData.Rewards and next(drugData.Rewards) then
         for item, amount in pairs(drugData.Rewards) do
-            AddItem(src, item, amount)
+            local multiplier = 1
+            if rankData.Benifits and rankData.Benifits.Multiplier then
+                multiplier = rankData.Benifits.Multiplier
+            end
+            AddItem(src, item, amount * multiplier)
         end
     end
 end)
