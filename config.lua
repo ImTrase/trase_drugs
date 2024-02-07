@@ -21,7 +21,7 @@ Config.RoleBenifits = {
 }
 
 Config.Options = {
-    DrawDistance = 10.0, -- The distance to draw the markers (increasing can hurt performance)
+    DrawDistance = 5.0, -- The distance to draw the markers (increasing can hurt performance)
     AutoRepeat = true, -- If enabled, the player will not need to press E to farm after each action.
 }
 
@@ -51,6 +51,7 @@ Config.Ranks = {
 }
 
 Config.Drugs = {
+    -- Configured for: https://www.gta5-mods.com/maps/mlo-enhanced-coke-lab-sp-fivem-dvd6789
     ['coke'] = {
         Label = 'Coke',
         Speeds = {
@@ -69,6 +70,7 @@ Config.Drugs = {
                 Prop = { model = 'prop_coke_block_half_b', pos = vector3(0.13, 0.03, 0.02), rot = vector3(0.0, 0.0, 0.0) },
                 Anim = { dict = 'mini@repair', clip = 'fixing_a_ped' }
             },
+
             Rewards = {
                 ['money'] = 2500,
                 ['water'] = 1
@@ -79,7 +81,7 @@ Config.Drugs = {
 
         Process = {
             Locations = {
-                vec3(48.6413, 46.8333, 72.6150)
+                vec3(879.9382, -1132.7386, 26.0384)
             },
 
             Rewards = {

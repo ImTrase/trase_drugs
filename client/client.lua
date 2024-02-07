@@ -14,6 +14,8 @@ CreateThread(function()
     end
 end)
 
+local shownUI = {}
+
 local function CreateDrugs()
     while not Config or not next(Config) do Wait(0) end
 
@@ -25,20 +27,24 @@ local function CreateDrugs()
                     distance = Config.Options.DrawDistance,
                 })
 
-                function point:onEnter()
-                    --@Todo: Add a localized string for this.
-                    TextUI(locale('prompt_collect'):format(v.Label))
-                end
-
-                function point:onExit()
-                    TextUI(false)
-                end
 
                 function point:nearby()
                     CreateMarker(self.coords.xyz)
+                    local id = 'collect'.. i
+                    if self.currentDistance <= 3 then
+                        if not shownUI[id] then
+                            shownUI[id] = true
+                            TextUI(locale('prompt_collect'):format(v.Label))
+                        end
+                    elseif shownUI[id] then
+                        shownUI[id] = nil
+                        TextUI(false)
+                    end
                  
-                    if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
-                        AttemptCollect(k, v)
+                    if self.currentDistance <= 2 then
+                        if IsControlJustReleased(0, 38) then
+                            AttemptCollect(k, v)
+                        end
                     end
                 end
             end
@@ -51,24 +57,23 @@ local function CreateDrugs()
                     distance = Config.Options.DrawDistance,
                 })
 
-                function point:onEnter()
-                    --@Todo: Add a localized string for this.
-                    TextUI(locale('prompt_process'):format(v.Label))
-                end
-
-                function point:onExit()
-                    TextUI(false)
-                end
 
                 function point:nearby()
                     CreateMarker(self.coords.xyz)
-
-                    if self.currentDistance <= 2 and IsControlJustReleased(0, 38) then
-                        AttemptProcess(k, v)
+                    local id = 'process'.. i
+                    if self.currentDistance <= 2 then
+                        if not shownUI[id] then
+                            shownUI[id] = true
+                            TextUI(locale('prompt_process'):format(v.Label))
+                        end
+                        if IsControlJustReleased(0, 38) then
+                            AttemptProcess(k, v)
+                        end
+                    elseif shownUI[id] and self.currentDistance > 2 then
+                        shownUI[id] = false
+                        TextUI(false)
                     end
                 end
-
-          
             end
         end
     end
