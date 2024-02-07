@@ -11,7 +11,8 @@ local locale = locale -- Localize the locale function.
 -- @param coords table
 -- @return void
 function CreateMarker(coords)
-    DrawMarker(2, coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0, 200, 20, 20, 50, false, true, 2, false, nil, nil, false)
+    return DrawMarker(2, coords, vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(0.3, 0.3, 0.2), 0, 155, 0, 155,  true,  true, 2, true, nil, nil, false);
+    -- DrawMarker(2, coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0, 1.0, 200, 20, 20, 50, false, true, 2, false, nil, nil, false)
 end
 
 -- Utilizes the text UI to prompt the user to press a key.
@@ -72,8 +73,8 @@ function AttemptCollect(drug, data)
         disable = { car = true, move = true, combat = true },
     }
 
-    if data.anim then progressBar.anim = data.anim end
-    if data.prop then progressBar.prop = data.prop end
+    if data.Collection.Options.Anim then progressBar.anim = data.Collection.Options.Anim end
+    if data.Collection.Options.Prop then progressBar.prop = data.Collection.Options.Prop end
 
     if lib.progressBar(progressBar) then
         TriggerServerEvent('trase_drugs:server:collect', drug)
@@ -82,6 +83,8 @@ function AttemptCollect(drug, data)
             Wait(100)
             AttemptCollect(drug, data)
         end
+    else
+        busy = false
     end
 end
 
@@ -126,8 +129,8 @@ function AttemptProcess(drug, data)
         disable = { car = true, move = true, combat = true },
     }
 
-    if data.anim then progressBar.anim = data.anim end
-    if data.prop then progressBar.prop = data.prop end
+    if data.Options.Anim then progressBar.anim = data.Options.Anim end
+    if data.Options.Prop then progressBar.prop = data.Options.Prop end
 
     if lib.progressBar(progressBar) then
         TriggerServerEvent('trase_drugs:server:process', drug)
@@ -136,5 +139,7 @@ function AttemptProcess(drug, data)
             Wait(100)
             AttemptProcess(drug, data)
         end
+    else
+        busy = false
     end
 end

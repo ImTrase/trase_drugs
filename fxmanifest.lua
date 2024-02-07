@@ -35,8 +35,6 @@ escrow_ignore {
 
 --[[
     ToDo:
-    - Collect all the drugs
-
 
     Features:
     - Server-Sided Configuration to prevent modders getting the locations
@@ -50,7 +48,7 @@ escrow_ignore {
     - Easy to use and understand
     - Synchronized Props (configurable)
     - Synchronized Animations (configurable)
-    
+
 
     Dependencies:
     - ox_lib

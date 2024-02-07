@@ -60,9 +60,15 @@ Config.Drugs = {
 
         Collection = {
             Locations = {
-                vec3(0, 0, 0),
+                vec3(882.4806, -1141.9399, 26.0383),
+                vec3(880.1509, -1141.8541, 26.0383),
             },
 
+            -- For options view https://overextended.dev/ox_lib/Modules/Interface/Client/progress for the options. (for only prop + anim)
+            Options = {
+                Prop = { model = 'prop_coke_block_half_b', pos = vector3(0.13, 0.03, 0.02), rot = vector3(0.0, 0.0, 0.0) },
+                Anim = { dict = 'mini@repair', clip = 'fixing_a_ped' }
+            },
             Rewards = {
                 ['money'] = 2500,
                 ['water'] = 1
