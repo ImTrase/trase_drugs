@@ -35,6 +35,7 @@ escrow_ignore {
 
 --[[
     ToDo:
+    - /raid system
 
     Features:
     - Server-Sided Configuration to prevent modders getting the locations
