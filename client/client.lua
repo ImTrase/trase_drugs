@@ -1,7 +1,7 @@
 local lib = lib
 
 local locale = locale
-
+DiscordBenifits = {}
 
 -- Create Thread that will loop with Wait(0) then break after connection
 CreateThread(function()
@@ -79,4 +79,7 @@ RegisterNetEvent('trase_drugs:client:syncData', function(data, drugRank)
 
     CreateDrugs()
     LocalPlayer.state.drugRank = drugRank
+    if data.role then
+        DiscordBenifits = data.role
+    end
 end)

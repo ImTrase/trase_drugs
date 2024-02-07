@@ -15,6 +15,18 @@ function GetRankData(target)
     return rank, Config.Ranks[rank]
 end
 
+-- Function to see if they have a discord role (uses trase_discord resource by default)
+--@param src number
+--@param roleId string | number
+--@return boolean
+function HasRole(src, roleId)
+    if GetResourceState('trase_discord') ~= 'started' then
+        print('^2[Trase_Drugs]^0: ^1[ERROR]^0: The "Trase_Discord" resource is missing or not configured properly.')
+        return false
+    end
+    return exports.trase_discord:hasRole(src, roleId, false)
+end
+
 -- Function to check the requirements for the player to collect or process drugs
 --@param src number
 --@param drug string

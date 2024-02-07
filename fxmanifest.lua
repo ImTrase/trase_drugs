@@ -40,7 +40,17 @@ escrow_ignore {
 
     Features:
     - Server-Sided Configuration to prevent modders getting the locations
-
+    - Rank System with benefits (Speed, Multiplier, etc)
+    - Collection and Processing of Drugs
+    - Extensive Configuration for Collection and Processing (Rewards, Times, Requirements, etc)
+    - Discord Role Benefits (Multiplier, etc) [Good for donators, VIP, etc]
+    - Fully Customizable
+    - Framework Support (ESX, QBCore, etc)
+    - Localization Support
+    - Easy to use and understand
+    - Synchronized Props (configurable)
+    - Synchronized Animations (configurable)
+    
 
     Dependencies:
     - ox_lib

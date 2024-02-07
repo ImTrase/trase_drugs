@@ -7,6 +7,7 @@ local function InitClientConfig()
 end
 
 local loaded = false
+local DiscordBenifits = {}
 
 CreateThread(function()
     while not Config or not next(Config) do Wait(0) end
@@ -40,7 +41,17 @@ RegisterNetEvent('trase_drugs:server:playerConnected', function()
         local data = {
             config = InitClientConfig()
         }
-        TriggerClientEvent('trase_drugs:client:syncData', src, data, 2)
+        if Config.RoleBenifits.Enabled then
+            for i = 1, #Config.RoleBenifits.Roles do
+                local role = Config.RoleBenifits.Roles[i]
+                if HasRole(src, role.RoleId) then
+                    data.role = role.Benifits
+                    DiscordBenifits[tonumber(src)] = role.Benifits
+                    break
+                end
+            end
+        end
+        TriggerClientEvent('trase_drugs:client:syncData', src, data, rank)
     end
 end)
 
@@ -68,8 +79,16 @@ RegisterNetEvent('trase_drugs:server:collect', function(drug)
     if drugData.Rewards and next(drugData.Rewards) then
         for item, amount in pairs(drugData.Rewards) do
             local multiplier = 1
+            local Discord = DiscordBenifits[tonumber(src)]
             if rankData.Benifits and rankData.Benifits.Multiplier then
                 multiplier = rankData.Benifits.Multiplier
+            end
+            if Discord and Discord.Multiplier then
+                if Config.RoleBenifits.StackMultipliers then
+                    multiplier = multiplier * Discord.Multiplier
+                else
+                    multiplier = Discord.Multiplier
+                end
             end
             AddItem(src, item, amount * multiplier)
         end
@@ -100,8 +119,17 @@ RegisterNetEvent('trase_drugs:server:process', function(drug)
     if drugData.Rewards and next(drugData.Rewards) then
         for item, amount in pairs(drugData.Rewards) do
             local multiplier = 1
+            local Discord = DiscordBenifits[tonumber(src)]
             if rankData.Benifits and rankData.Benifits.Multiplier then
                 multiplier = rankData.Benifits.Multiplier
+            end
+            -- Same logic as rank but with DiscordBenifits instead.
+            if Discord and Discord.Multiplier then
+                if Config.RoleBenifits.StackMultipliers then
+                    multiplier = multiplier * Discord.Multiplier
+                else
+                    multiplier = Discord.Multiplier
+                end
             end
             AddItem(src, item, amount * multiplier)
         end

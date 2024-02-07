@@ -5,6 +5,21 @@ Config = {}
 Config.Framework = 0 -- 0 = ESX, 1 = QBCore
 Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
+Config.RoleBenifits = {
+    Enabled = true, -- If enabled, players will get benifits from their discord role. (pulls from the top role in the list, so make sure the most important role is at the top.)
+    StackMultipliers = true, -- If enabled, the player will stack the multipliers from the discordRole + rank.
+    Roles = {
+        {
+            RoleId = 960632501775257671,
+            Benifits = {
+                CollectionSpeed = 25, -- 25% faster collection speed
+                ProcessSpeed = 25, -- 25% faster process speed
+                Multiplier = 2, -- 2x the rewards
+            }
+        }
+    }
+}
+
 Config.Options = {
     DrawDistance = 10.0, -- The distance to draw the markers (increasing can hurt performance)
     AutoRepeat = true, -- If enabled, the player will not need to press E to farm after each action.
@@ -22,7 +37,6 @@ Config.Ranks = {
         Benifits = {
             CollectionSpeed = 5, -- 5% faster collection speed
             ProcessSpeed = 5, -- 5% faster process speed
-            Multiplier = 2, -- 1.5x the rewards
         }
     },
     {

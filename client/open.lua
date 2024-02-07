@@ -28,8 +28,8 @@ end
 -- Sends a notification to the player.
 -- @param text string
 -- @return void
-function SendNotification(text)
-    lib.notify(text)
+function SendNotification(text, type)
+    lib.notify({ type = type, title = text })
 end
 
 -- Attempts to collect the drugs from the collection point.
@@ -40,9 +40,9 @@ function AttemptCollect(drug, data)
     if (busy) then return end
     busy = true
 
-    local canCollect = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'collect')
+    local canCollect, itemMissin = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'collect')
     if not canCollect then
-        SendNotification(locale('missing_items'):format(canCollect))
+        SendNotification(locale('missing_items'):format(itemMissin), 'error')
         busy = false
         return
     end
@@ -56,6 +56,12 @@ function AttemptCollect(drug, data)
             local finalSpeed = data.Speeds.Collection - (data.Speeds.Collection * (rankData.Benifits.CollectionSpeed / 100))
             time = finalSpeed * 1000
         end
+    end
+
+    -- Same logic as rank but with DiscordBenifits instead.
+    if DiscordBenifits and DiscordBenifits.CollectionSpeed then
+        local finalSpeed = data.Speeds.Collection - (data.Speeds.Collection * (DiscordBenifits.CollectionSpeed / 100))
+        time = finalSpeed * 1000
     end
 
     local progressBar = {
@@ -87,9 +93,9 @@ function AttemptProcess(drug, data)
     if (busy) then return end
     busy = true
 
-    local canProcess = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'process')
+    local canProcess, itemMissin = lib.callback.await('trase_drugs:server:check_requirements', false, drug, 'process')
     if not canProcess then
-        SendNotification(locale('missing_items'):format(canProcess))
+        SendNotification(locale('missing_items'):format(itemMissin), 'error')
         busy = false
         return
     end
@@ -104,6 +110,12 @@ function AttemptProcess(drug, data)
             local finalSpeed = data.Speeds.Process - (data.Speeds.Process * (rankData.Benifits.ProcessSpeed / 100))
             time = finalSpeed * 1000
         end
+    end
+
+    -- Exact same logic as rank but with DiscordBenifits instead.
+    if DiscordBenifits and DiscordBenifits.ProcessSpeed then
+        local finalSpeed = data.Speeds.Process - (data.Speeds.Process * (DiscordBenifits.ProcessSpeed / 100))
+        time = finalSpeed * 1000
     end
 
     local progressBar = {
