@@ -5,7 +5,7 @@ Config = {}
 Config.Framework = 'auto' -- 0 = ESX, 1 = QBCore
 Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
-Config.DiscordLogs = true -- If enabled, set webhook in server/open.lua
+Config.DiscordLogs = false -- If enabled, set webhook in server/open.lua
 
 Config.RoleBenifits = {
     Enabled = true, -- If enabled, players will get benifits from their discord role. (pulls from the top role in the list, so make sure the most important role is at the top.)
