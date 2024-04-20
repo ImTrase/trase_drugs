@@ -23,6 +23,7 @@ server_scripts {
     'frameworks/**/server.lua',
     'server/open.lua',
     'server/server.lua',
+    'server/versions.lua'
 }
 
 files {
@@ -33,6 +34,15 @@ escrow_ignore {
     -- Always ignore these:
     'config.lua',
     'client/open.lua',
+    'server/open.lua',
+    'server/versions.lua',
+    'framework/**/*.lua',
+}
+
+dependencies {
+    'mysql-async',
+    'ox_lib',
+    'trase_dealer'
 }
 
 --[[
