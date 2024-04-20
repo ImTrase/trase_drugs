@@ -5,5 +5,8 @@
     "progress_process": "Processing %s",
     "missing_items": "You are missing %s",
 
-    "rank_notify": "Your current rank is \"%s\"."
+    "rank_notify": "Your current rank is \"%s\".",
+    "invalid_drug": "This is not a valid drug location to raid.",
+    "invalid_job": "You are not allowed to start a drug raid.",
+    "raid_message": "^2[POLICE]^0: ^1[RAID]^0: Police about to raid %s! %s seconds before entering."
 }

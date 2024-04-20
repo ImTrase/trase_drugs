@@ -57,6 +57,74 @@ function CheckRequirements(src, drug, type)
     return true
 end
 
+-- Function to log to discord via an HTTP request (discord embed)
+--@param args table
+--@return void
+function SendLog(args)
+    local title = args.title or "Drug System"
+    local info = args.description or "No information provided"
+    local webhook = args.webhook or ""
+    local label = args.label or "Drug System"
+    local fields = args.fields or {}
+
+    local discordInfo = {
+        ["color"] = "000001",
+        ["type"] = "rich",
+        ["title"] = title,
+        ["description"] = info,
+        ["fields"] = fields,
+        ["author"] = {
+            ["name"] = label
+        }
+    }
+
+    PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
+        username = 'Drug System',
+        avatar_url = "https://cdn.discordapp.com/attachments/1119540289196003410/1231280996851257435/logo.png?ex=663662c9&is=6623edc9&hm=338e8edb036c807111f6bf7aec8458c14c14d22d03f2af91bdb017d90605ac09&",
+        embeds = { discordInfo } }),
+        { ['Content-Type'] = 'application/json'
+    })
+end
+
+if Config.RaidCommand.Enabled then
+    Raiding = false
+end
+
+-- Function called when raiding a drug location
+-- @param location string
+--@return void
+function RaidLocation(location)
+    if Raiding then return end
+
+    Raiding = true
+    -- 10 Second raid time
+    local message = locale('raid_message'):format(location, Config.RaidCommand.CountDown)
+
+    TriggerClientEvent('chat:addMessage', -1, {
+        args = { message }
+    })
+    
+    -- Wait half the Config.RaidCommand.CountDown
+    Wait(Config.RaidCommand.CountDown * 500)
+
+    -- Announce the raid is about to happen
+    message = locale('raid_message'):format(location, 5)
+
+    TriggerClientEvent('chat:addMessage', -1, {
+        args = { message }
+    })
+
+    -- Wait 5 seconds
+    Wait(5000)
+
+    -- Chat message to show the raid has ended
+    message = locale('raid_end'):format(location)
+
+    TriggerClientEvent('chat:addMessage', -1, {
+        args = { message }
+    })
+end
+
 -- Callback to check if the player has the required items to collect or process drugs
 --@param src number
 --@param drug string

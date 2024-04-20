@@ -146,4 +146,20 @@ if Config.RankCommand.Enabled then
     end, false)
 end
 
+if Config.RaidCommand.Enabled then
+    RegisterCommand(Config.RaidCommand.Command, function(source, args)
+        local src = source
+        local job = GetPlayerJob(src)
+        if not job or not Config.RaidCommand.Jobs[job] then
+            return TriggerClientEvent('trase_dealer:client:notify', src, locale('invalid_job'))
+        end
+
+        local drug = args[1]
+        if not Config.Drugs[drug] then
+            return TriggerClientEvent('trase_dealer:client:notify', src, locale('invalid_drug'))
+        end
+        RaidLocation(drug)
+    end, false)
+end
+
 lib.locale()

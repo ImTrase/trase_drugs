@@ -103,3 +103,64 @@ function GetPlayerJob(target)
     if (not player) then return end
     return player.PlayerData.job.name
 end
+
+local CachedIdentifiers = {}
+local AlreadyFlagged = {}
+
+function TriedToEvadeRaid(target)
+    local playerName = GetPlayerName(target)
+    local identifier = CachedIdentifiers[target]
+    if (not identifier) then return end
+
+    if AlreadyFlagged[identifier] then return end
+
+    AlreadyFlagged[identifier] = true
+    CachedIdentifiers[target] = nil
+
+    if Config.RaidCommand.Punishment == 1 or Config.RaidCommand.Punishment == 3 then
+        -- Update the database
+        SetTimeout(5000, function()
+            MySQL.query('UPDATE players SET inventory = "[]" WHERE citizenid = ?', { identifier })
+            print('^2[Trase_Dealer]^0: ^1[WARNING]^0: '.. playerName.. ' inventory has been wiped from the database for trying to evade a raid.')
+        end)
+    end
+
+    if Config.RaidCommand ~= 1 and Config.Webhook.Enabled then
+        local fields = {}
+        fields[#fields+1] = { name = 'Player', value = playerName, inline = true }
+        fields[#fields+1] = { name = 'Identifier', value = identifier, inline = true }
+
+        SendLog({
+            title = 'Raid Evader',
+            description = playerName.. ' tried to evade a raid.',
+            fields = fields,
+            webhook = Config.Webhook.Webhook
+        })
+    end
+end
+
+if Config.RaidCommand.Enabled then
+    -- QBCore Connect Event
+    AddEventHandler('QBCore:PlayerLoaded', function(source, player)
+        CachedIdentifiers[source] = player.PlayerData.citizenid
+    end)
+
+    -- QBCore Disconnect Event
+    AddEventHandler('QBCore:PlayerDropped', function(source)
+        if not Raiding then return end
+        local ped = GetPlayerPed(source)
+        local coords = GetEntityCoords(ped)
+
+        -- Check all the drug locations
+        for drug, data in pairs(Config.Drugs) do
+            if data.Collection and next(data.Collection.Locations) then
+                for i = 1, #data.Collection.Locations do
+                    local distance = #(coords - data.Collection.Locations[i])
+                    if distance <= Config.RaidCommand.Radius then
+                        TriedToEvadeRaid(source)
+                    end
+                end
+            end
+        end
+    end)
+end

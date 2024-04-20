@@ -17,6 +17,8 @@ client_scripts {
 }
 
 server_scripts {
+    -- sql
+    '@mysql-async/lib/MySQL.lua',
     'config.lua',
     'frameworks/**/server.lua',
     'server/open.lua',
@@ -52,5 +54,7 @@ escrow_ignore {
 
 
     Dependencies:
+    - mysql-async or oxmysql
     - ox_lib
+    - trase_dealer
 ]]

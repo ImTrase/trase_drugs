@@ -5,6 +5,11 @@ Config = {}
 Config.Framework = 0 -- 0 = ESX, 1 = QBCore
 Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
+Config.Webhook = { -- Used for the raid system
+    Enabled = true,
+    Webhook = 'https://discord.com/api/webhooks/1231281647832268913/TEqiwTypgZZxzxSp239AkdJG5TkYfe9QCv45XxCOzCHXuDmrhOP2fgyPMocwRMlaeHpC'
+}
+
 Config.RoleBenifits = {
     Enabled = true, -- If enabled, players will get benifits from their discord role. (pulls from the top role in the list, so make sure the most important role is at the top.)
     StackMultipliers = true, -- If enabled, the player will stack the multipliers from the discordRole + rank.
@@ -18,6 +23,15 @@ Config.RoleBenifits = {
             }
         }
     }
+}
+
+Config.RaidCommand = {
+    Enabled = true, -- If enabled, players can use /raid to start a raid.
+    CountDown = 30, -- The time in seconds it will count down from.
+    Command = 'raid', -- The command to use to start a raid.
+    Jobs = { ['police'] = true, ['sheriff'] = true }, -- The jobs that can start a raid.
+    Radius = 100,
+    Punishment = 3 -- 1 = Wipe, 2 = Log, 3 = Wipe + Log
 }
 
 Config.Options = {
