@@ -36,9 +36,6 @@ escrow_ignore {
 }
 
 --[[
-    ToDo:
-    - /raid system
-
     Features:
     - Server-Sided Configuration to prevent modders getting the locations
     - Rank System with benefits (Speed, Multiplier, etc)
@@ -51,6 +48,7 @@ escrow_ignore {
     - Easy to use and understand
     - Synchronized Props (configurable)
     - Synchronized Animations (configurable)
+    - /raid system
 
 
     Dependencies:

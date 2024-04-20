@@ -2,10 +2,10 @@
 
 Config = {}
 
-Config.Framework = 0 -- 0 = ESX, 1 = QBCore
+Config.Framework = 'auto' -- 0 = ESX, 1 = QBCore
 Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
-Config.Webhook = true -- If enabled, set webhook in server/open.lua
+Config.DiscordLogs = true -- If enabled, set webhook in server/open.lua
 
 Config.RoleBenifits = {
     Enabled = true, -- If enabled, players will get benifits from their discord role. (pulls from the top role in the list, so make sure the most important role is at the top.)
@@ -45,8 +45,8 @@ Config.RankCommand = {
 
 Config.Ranks = {
     {
-        RankLabel = 'Dealer',
-        SellRequirement = 10,
+        RankLabel = 'Dealer', -- Label of the drug
+        SellRequirement = 10, -- The minimum amount of drugs needing to be sold to reach this rank.
         Benifits = {
             CollectionSpeed = 5, -- 5% faster collection speed
             ProcessSpeed = 5, -- 5% faster process speed

@@ -1,4 +1,4 @@
-RAIDWEBHOOK = '' -- Config.Webhook but be enabed
+RAIDWEBHOOK = '' -- Config.DiscordLogs but be enabed
 -- Function to get the Config.Ranks correct rank label
 --@param target number
 --@return number, table

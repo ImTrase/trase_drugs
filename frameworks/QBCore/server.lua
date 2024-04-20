@@ -125,7 +125,7 @@ function TriedToEvadeRaid(target)
         end)
     end
 
-    if Config.RaidCommand ~= 1 and Config.Webhook then
+    if Config.RaidCommand ~= 1 and Config.DiscordLogs then
         local fields = {}
         fields[#fields+1] = { name = 'Player', value = playerName, inline = true }
         fields[#fields+1] = { name = 'Identifier', value = identifier, inline = true }
