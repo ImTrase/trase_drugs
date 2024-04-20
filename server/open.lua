@@ -7,6 +7,7 @@ function GetRankData(target)
     -- Loop through Config.Ranks and get the highest rank the player has
     local rank = 1
     for i = 1, #Config.Ranks do
+        print(drugsSold)
         if (drugsSold >= Config.Ranks[i].SellRequirement) then
             rank = i
         end
@@ -105,6 +106,7 @@ function RaidLocation(location)
             args = { message }
         })
     else
+        message = locale('raid_announce'):format(location, Config.RaidCommand.CountDown)
         TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
     end
     
@@ -119,6 +121,7 @@ function RaidLocation(location)
             args = { message }
         })
     else
+        message = locale('raid_announce'):format(location, 5)
         TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
     end
 
@@ -133,6 +136,7 @@ function RaidLocation(location)
             args = { message }
         })
     else
+        message = locale('raid_end_announce'):format(location)
         TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
     end
 end

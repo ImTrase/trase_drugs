@@ -28,7 +28,7 @@ Config.RoleBenifits = {
 Config.RaidCommand = {
     Enabled = true, -- If enabled, players can use /raid to start a raid.
     CountDown = 30, -- The time in seconds it will count down from.
-    AnnounceType = 1, -- 1 = Chat, 2 = TXAdmin Message (can be changed in server/open.lua)
+    AnnounceType = 2, -- 1 = Chat, 2 = TXAdmin Message (can be changed in server/open.lua)
     Command = 'raid', -- The command to use to start a raid.
     Jobs = { ['police'] = true, ['sheriff'] = true }, -- The jobs that can start a raid.
     Radius = 100,
@@ -87,8 +87,7 @@ Config.Drugs = {
             },
 
             Rewards = {
-                ['money'] = 2500,
-                ['water'] = 1
+                ['coke_bag'] = 1
             },
 
             Requirements = false
@@ -99,12 +98,17 @@ Config.Drugs = {
                 vec3(879.9382, -1132.7386, 26.0384)
             },
 
+            Options = {
+                Prop = { model = 'hei_prop_hei_drug_pack_01b', pos = vector3(0.13, 0.03, 0.02), rot = vector3(0.0, 0.0, 0.0) },
+                Anim = { dict = 'mini@repair', clip = 'fixing_a_ped' }
+            },
+
             Rewards = {
-                ['bread'] = 1
+                ['coke_brick'] = 1
             },
 
             Requirements = {
-                ['water'] = 1
+                ['coke_bag'] = 10
             }
         },
     }

@@ -73,8 +73,10 @@ function AttemptCollect(drug, data)
         disable = { car = true, move = true, combat = true },
     }
 
-    if data.Collection.Options.Anim then progressBar.anim = data.Collection.Options.Anim end
-    if data.Collection.Options.Prop then progressBar.prop = data.Collection.Options.Prop end
+    if data.Collection.Options then
+        if data.Collection.Options.Anim then progressBar.anim = data.Collection.Options.Anim end
+        if data.Collection.Options.Prop then progressBar.prop = data.Collection.Options.Prop end
+    end
 
     if lib.progressBar(progressBar) then
         TriggerServerEvent('trase_drugs:server:collect', drug)
@@ -129,8 +131,10 @@ function AttemptProcess(drug, data)
         disable = { car = true, move = true, combat = true },
     }
 
-    if data.Options.Anim then progressBar.anim = data.Options.Anim end
-    if data.Options.Prop then progressBar.prop = data.Options.Prop end
+    if data.Process.Options then
+        if data.Process.Options.Anim then progressBar.anim = data.Process.Options.Anim end
+        if data.Process.Options.Prop then progressBar.prop = data.Process.Options.Prop end
+    end
 
     if lib.progressBar(progressBar) then
         TriggerServerEvent('trase_drugs:server:process', drug)

@@ -37,6 +37,7 @@ RegisterNetEvent('trase_drugs:server:playerConnected', function()
  
     if loaded then
         local rank = GetRankData(src)
+        print(json.encode(rank))
         Player(src).state:set('drugRank', rank, false)
         local data = {
             config = InitClientConfig()

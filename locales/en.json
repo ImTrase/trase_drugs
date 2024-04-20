@@ -8,5 +8,8 @@
     "rank_notify": "Your current rank is \"%s\".",
     "invalid_drug": "This is not a valid drug location to raid.",
     "invalid_job": "You are not allowed to start a drug raid.",
-    "raid_message": "^2[POLICE]^0: ^1[RAID]^0: Police about to raid %s! %s seconds before entering."
+    "raid_message": "^2[POLICE]^0: ^1[RAID]^0: Police about to raid %s! %s seconds before entering.",
+    "raid_announce": "Police are going to raid %s in %s seconds!",
+    "raid_end": "^2[POLICE]^0: ^1[RAID]^0: Police are now raiding %s!",
+    "raid_end_announce": "Police are now raiding %s!"
 }
