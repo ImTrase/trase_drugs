@@ -1,3 +1,4 @@
+RAIDWEBHOOK = '' -- Config.Webhook but be enabed
 -- Function to get the Config.Ranks correct rank label
 --@param target number
 --@return number, table
@@ -139,6 +140,10 @@ function RaidLocation(location)
         message = locale('raid_end_announce'):format(location)
         TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
     end
+
+    SetTimeout(Config.RaidCommand.Duration * 60000, function()
+        Raiding = false
+    end)
 end
 
 -- Callback to check if the player has the required items to collect or process drugs

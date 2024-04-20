@@ -123,7 +123,7 @@ function TriedToEvadeRaid(target)
         end)
     end
 
-    if Config.RaidCommand ~= 1 and Config.Webhook.Enabled then
+    if Config.RaidCommand ~= 1 and Config.Webhook then
         local fields = {}
         fields[#fields+1] = { name = 'Player', value = playerName, inline = true }
         fields[#fields+1] = { name = 'Identifier', value = identifier, inline = true }
@@ -132,7 +132,7 @@ function TriedToEvadeRaid(target)
             title = 'Raid Evader',
             description = playerName.. ' tried to evade a raid.',
             fields = fields,
-            webhook = Config.Webhook.Webhook
+            webhook = RAIDWEBHOOK
         })
     end
 end
