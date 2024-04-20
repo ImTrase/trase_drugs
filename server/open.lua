@@ -100,9 +100,13 @@ function RaidLocation(location)
     -- 10 Second raid time
     local message = locale('raid_message'):format(location, Config.RaidCommand.CountDown)
 
-    TriggerClientEvent('chat:addMessage', -1, {
-        args = { message }
-    })
+    if Config.RaidCommand.AnnounceType == 1 then
+        TriggerClientEvent('chat:addMessage', -1, {
+            args = { message }
+        })
+    else
+        TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
+    end
     
     -- Wait half the Config.RaidCommand.CountDown
     Wait(Config.RaidCommand.CountDown * 500)
@@ -110,9 +114,13 @@ function RaidLocation(location)
     -- Announce the raid is about to happen
     message = locale('raid_message'):format(location, 5)
 
-    TriggerClientEvent('chat:addMessage', -1, {
-        args = { message }
-    })
+    if Config.RaidCommand.AnnounceType == 1 then
+        TriggerClientEvent('chat:addMessage', -1, {
+            args = { message }
+        })
+    else
+        TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
+    end
 
     -- Wait 5 seconds
     Wait(5000)
@@ -120,9 +128,13 @@ function RaidLocation(location)
     -- Chat message to show the raid has ended
     message = locale('raid_end'):format(location)
 
-    TriggerClientEvent('chat:addMessage', -1, {
-        args = { message }
-    })
+    if Config.RaidCommand.AnnounceType == 1 then
+        TriggerClientEvent('chat:addMessage', -1, {
+            args = { message }
+        })
+    else
+        TriggerClientEvent('txcl:showAnnouncement', -1, message, 'LSPD')
+    end
 end
 
 -- Callback to check if the player has the required items to collect or process drugs

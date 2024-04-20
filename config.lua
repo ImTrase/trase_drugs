@@ -28,6 +28,7 @@ Config.RoleBenifits = {
 Config.RaidCommand = {
     Enabled = true, -- If enabled, players can use /raid to start a raid.
     CountDown = 30, -- The time in seconds it will count down from.
+    AnnounceType = 1, -- 1 = Chat, 2 = TXAdmin Message (can be changed in server/open.lua)
     Command = 'raid', -- The command to use to start a raid.
     Jobs = { ['police'] = true, ['sheriff'] = true }, -- The jobs that can start a raid.
     Radius = 100,
