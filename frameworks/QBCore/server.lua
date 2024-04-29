@@ -38,6 +38,12 @@ function AddMoney(target, account, amount)
     end
 end
 
+function AddItem(target, item, amount)
+    local player = QBCore.Functions.GetPlayer(target)
+    if (not player) then return end
+    player.Functions.AddItem(item, amount)
+end
+
 function RemoveItem(target, item, amount)
     local player = QBCore.Functions.GetPlayer(target)
     if (not player) then return end

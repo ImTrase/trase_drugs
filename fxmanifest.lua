@@ -33,8 +33,8 @@ files {
 escrow_ignore {
     -- Always ignore these:
     'config.lua',
-    'client/open.lua',
-    'server/open.lua',
+    'client/*.lua',
+    'server/*.lua',
     'server/versions.lua',
     'framework/**/*.lua',
 }
