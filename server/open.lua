@@ -8,7 +8,6 @@ function GetRankData(target)
     -- Loop through Config.Ranks and get the highest rank the player has
     local rank = 1
     for i = 1, #Config.Ranks do
-        print(drugsSold)
         if (drugsSold >= Config.Ranks[i].SellRequirement) then
             rank = i
         end
