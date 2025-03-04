@@ -3,13 +3,18 @@ RAIDWEBHOOK = '' -- Config.DiscordLogs but be enabed
 --@param target number
 --@return number, table
 function GetRankData(target)
-    local drugsSold = exports.trase_dealer:CountDrugs(target)
-
-    -- Loop through Config.Ranks and get the highest rank the player has
     local rank = 1
-    for i = 1, #Config.Ranks do
-        if (drugsSold >= Config.Ranks[i].SellRequirement) then
-            rank = i
+    if Config.EnableRanks then
+        if GetResourceState(Config.Dealer) ~= 'started' then
+            print('^2[Trase_Drugs]^0: ^1[ERROR]^0: The "Trase_Dealer" resource is missing or not configured properly.')
+            return rank, Config.Ranks[rank]
+        end
+        local drugsSold = exports[Config.Dealer]:CountDrugs(target)
+
+        for i = 1, #Config.Ranks do
+            if (drugsSold >= Config.Ranks[i].SellRequirement) then
+                rank = i
+            end
         end
     end
 

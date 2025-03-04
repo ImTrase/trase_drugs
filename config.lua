@@ -3,9 +3,11 @@
 Config = {}
 
 Config.Framework = 'auto' -- 0 = ESX, 1 = QBCore
-Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
 
 Config.DiscordLogs = false -- If enabled, set webhook in server/open.lua
+Config.EnableRanks = false -- If enabled, it will utilize the ranks system. (REQUIRES trase_dealer)
+Config.Dealer = 'trase_dealer' -- The resource name of the dealer system (REQUIRED)
+
 
 Config.RoleBenifits = {
     Enabled = true, -- If enabled, players will get benifits from their discord role. (pulls from the top role in the list, so make sure the most important role is at the top.)
@@ -37,6 +39,8 @@ Config.Options = {
     DrawDistance = 5.0, -- The distance to draw the markers (increasing can hurt performance)
     AutoRepeat = true, -- If enabled, the player will not need to press E to farm after each action.
 }
+
+-- These below will ONLY work if Config.EnableRanks is set to true.
 
 Config.RankCommand = {
     Enabled = true, -- If enabled, players can use /rank to view their rank.

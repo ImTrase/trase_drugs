@@ -37,7 +37,6 @@ RegisterNetEvent('trase_drugs:server:playerConnected', function()
  
     if loaded then
         local rank = GetRankData(src)
-        print(json.encode(rank))
         Player(src).state:set('drugRank', rank, false)
         local data = {
             config = InitClientConfig()
@@ -138,13 +137,15 @@ RegisterNetEvent('trase_drugs:server:process', function(drug)
 end)
 
 -- Command to Config.RankCommand
-if Config.RankCommand.Enabled then
-    RegisterCommand(Config.RankCommand.Command, function(source)
-        local src = source
-        local rank, rankData = GetRankData(src)
+if Config.RankCommand.Enabled and Config.EnableRanks then
+    if GetResourceState(Config.EnableRanks) == 'started' then
+        RegisterCommand(Config.RankCommand.Command, function(source)
+            local src = source
+            local rank, rankData = GetRankData(src)
 
-        TriggerClientEvent('trase_dealer:client:notify', src, locale('rank_notify'):format(rankData.RankLabel))
-    end, false)
+            TriggerClientEvent('trase_dealer:client:notify', src, locale('rank_notify'):format(rankData.RankLabel))
+        end, false)
+    end
 end
 
 if Config.RaidCommand.Enabled then
