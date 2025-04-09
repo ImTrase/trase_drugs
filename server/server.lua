@@ -12,22 +12,27 @@ local DiscordBenifits = {}
 CreateThread(function()
     while not Config or not next(Config) do Wait(0) end
     -- Check if export "CountDrugs" from resource trase_dealer exists
+    
+    if Config.EnableRanks then
+        local success, hasExport = pcall(function()
+            return exports[Config.Dealer] and exports[Config.Dealer].CountDrugs ~= nil
+        end)
 
-    local success, hasExport = pcall(function()
-        return exports[Config.Dealer] and exports[Config.Dealer].CountDrugs ~= nil
-    end)
+        local found = success and hasExport
 
-    local found = success and hasExport
-
-    if not found then
-        -- create a loop print to console every 5 seconds
-        while not found do
-            print('^2[Trase_Drugs]^0: ^1[ERROR]^0: The "Trase_Dealer" resource is missing or not configured properly.')
-            Wait(5000)
+        if not found then
+            -- Loop print to console every 5 seconds if the dealer resource is missing
+            while not found do
+                print('^2[Trase_Drugs]^0: ^1[ERROR]^0: The "Trase_Dealer" resource is missing or not configured properly.')
+                Wait(5000)
+            end
         end
-    end
 
-    if found then
+        if found then
+            loaded = true
+        end
+    else
+        -- If ranks are disabled, skip the dealer check and mark as loaded.
         loaded = true
     end
 end)
